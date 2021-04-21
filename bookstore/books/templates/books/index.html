@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+{% block body %}
+<div class="container">
+    <h1 class="mx-auto mt-5" style="width: fit-content;text-decoration: underline;">Books List</h1>
+    <a href="{% url 'create' %}" class="btn btn-success">Create</a>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+    {% for book in books %}
+    <!-- <h2>{{book.title}}</h2>
+    <p>{{book.author}}</p>
+    <p>{{book.price}}</p>
+    <button><a href="{% url 'destroy' book.id %}">Delete</a></button>
+    <button><a href="{% url 'edit' book.id %}">Edit</a></button>
+    <a href="{% url 'show' book.id %}">more</a>
+    
+    <hr> -->
+    <tr>
+        <th scope="row">{{book.id}}</th>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.price}}</td>
+        <td>
+            <a href="{% url 'edit' book.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'destroy' book.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'show' book.id %}">More>></a>
+        </td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

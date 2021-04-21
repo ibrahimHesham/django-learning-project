@@ -1,0 +1,16 @@
+{% extends "layouts/main.html" %}
+{% block body %}
+
+<div class="container">
+<!-- <h2>{{book.title}}</h2>
+<p>{{book.author}}</p>
+<p>{{book.price}}</p> -->
+<div class="card bg-light mb-3 mt-5">
+    <div class="card-header">{{book.title}}</div>
+    <div class="card-body">
+      <h5 class="card-title">{{book.author}}</h5>
+      <p class="card-text">{{book.price}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

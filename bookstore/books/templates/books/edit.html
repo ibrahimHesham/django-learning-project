@@ -1,0 +1,10 @@
+{% extends "layouts/main.html" %}
+{% block body %}
+<div class="container mt-5">
+    <form action="{% url 'edit' book.id %}" method="post">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button type="submit">Edit</buttom>
+	</form>
+</div>
+{% endblock %}

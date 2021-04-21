@@ -1,0 +1,10 @@
+{% extends "layouts/main.html" %}
+{% block body %}
+<div class="container mt5">
+    <form action="{% url 'create' %}" method="post">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button type="submit">Add</buttom>
+	</form>
+</div>
+{% endblock %}
