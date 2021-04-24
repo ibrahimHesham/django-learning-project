@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from .forms import BooksForm
 from .models import Books
 from django.contrib.auth.decorators import login_required, permission_required
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import BookSerializers
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 def index(request):
     # return HttpResponse("Hello, world. You're at the polls index.")
@@ -62,6 +63,7 @@ def books_list(request):
 
 
 @api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAuthenticated])
 def books_details(request,pk):
     try:
         book = Books.objects.get(pk=pk)
