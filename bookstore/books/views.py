@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from .forms import BooksForm
 from .models import Books
 from django.contrib.auth.decorators import login_required, permission_required
+from rest_framework.decorators import api_view
+from .serializers import BookSerializers
+from rest_framework.response import Response
+from rest_framework import status
 
 def index(request):
     # return HttpResponse("Hello, world. You're at the polls index.")
@@ -39,3 +43,18 @@ def edit(request,id):
         return redirect("index")
 
     return render(request,"books/edit.html",{'form':form,'book':book})
+
+
+@api_view(['GET','POST'])
+def books_list(request):
+    if request.method == 'GET':
+        books = Books.objects.all()
+        serializers = BookSerializers(books,many=True)
+        return Response(serializers.data)
+
+    elif(request.method == 'POST'):
+        serializers = BookSerializers(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data,status=status.HTTP_201_CREATED)
+        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
