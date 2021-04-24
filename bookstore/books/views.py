@@ -58,3 +58,30 @@ def books_list(request):
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET','PUT','DELETE'])
+def books_details(request,pk):
+    try:
+        book = Books.objects.get(pk=pk)
+        print("book hena")
+    except Books.DoesNotExist:
+        print("in not found")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializers = BookSerializers(book)
+        return Response(serializers.data)
+
+    elif request.method == 'PUT':
+        serializers = BookSerializers(book,request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
