@@ -71,6 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 LOGIN_REDIRECT_URL = '/books'
+LOGOUT_REDIRECT_URL = '/books'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
